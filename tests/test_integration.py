@@ -5,7 +5,7 @@ import os
 import pytest
 import pytest_asyncio
 
-from victor_smart_kill import (
+from victor_mouse_trap import (
     MobileApp,
     Trap,
     VictorApi,

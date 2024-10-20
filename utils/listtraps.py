@@ -9,7 +9,7 @@ import os
 import sys
 
 sys.path.append(os.path.abspath(".."))
-from victor_smart_kill import VictorApi, VictorAsyncClient  # noqa:E402
+from victor_mouse_trap import VictorApi, VictorAsyncClient  # noqa:E402
 
 _version = "0.1"
 

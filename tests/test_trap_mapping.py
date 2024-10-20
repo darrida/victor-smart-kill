@@ -6,7 +6,7 @@ import pathlib
 import pytest
 from dateutil.parser import isoparse
 
-from victor_smart_kill._models import Trap
+from victor_mouse_trap._models import Trap
 
 
 @pytest.fixture()
