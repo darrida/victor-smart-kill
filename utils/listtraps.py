@@ -40,17 +40,7 @@ async def start():
 
         traps.sort(key=lambda x: x.name)
         for n, trap in enumerate(traps):
-            print(
-                "%2s %-30s %10s %3s %3s %3s"
-                % (
-                    n,
-                    trap.name,
-                    trap.ssid,
-                    trap.status,
-                    trap.trapstatistics.battery_level,
-                    trap.trapstatistics.kills_present,
-                )
-            )
+            print(f"{n} {trap.name} | SSID: {trap.ssid} | Status:  {trap.status} | Battery: {trap.trapstatistics.battery_level} | Mouse In Trap: {trap.trapstatistics.kills_present} | Total Mouse History {trap.trapstatistics.total_kills}")
 
         if 0:
             history = await api.get_trap_history(traps[0].id)
@@ -67,7 +57,7 @@ async def start():
 
 def test():
     """Print test info."""
-    logging.warn("Testing")
+    logging.warning("Testing")
 
 
 def parse_args(argv):
@@ -115,10 +105,6 @@ def parse_args(argv):
 
 def main(argv, stdout, environ):
     """Program main entry point."""
-    if sys.version_info < (3, 0):
-        reload(sys)
-        sys.setdefaultencoding("utf8")
-
     parser, args = parse_args(argv)
 
     logging.basicConfig(

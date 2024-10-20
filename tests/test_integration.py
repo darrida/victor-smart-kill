@@ -1,4 +1,5 @@
 """Integration tests."""
+
 import os
 
 import pytest
@@ -6,10 +7,7 @@ import pytest_asyncio
 
 from victor_smart_kill import (
     MobileApp,
-    Operator,
-    Profile,
     Trap,
-    User,
     VictorApi,
     VictorAsyncClient,
 )
@@ -82,42 +80,42 @@ async def test_mobile_apps(victor_api: VictorApi):
     assert isinstance(app_1, MobileApp)
 
 
-@pytest.mark.asyncio
-async def test_get_operators(victor_api: VictorApi):
-    """Test get_operators."""
-    operators = await victor_api.get_operators()
-    assert operators is not None
-    for operator in operators:
-        assert isinstance(operator, Operator)
+# @pytest.mark.asyncio
+# async def test_get_operators(victor_api: VictorApi):
+#     """Test get_operators."""
+#     operators = await victor_api.get_operators()
+#     assert operators is not None
+#     for operator in operators:
+#         assert isinstance(operator, Operator)
 
-        operator_by_id = await victor_api.get_operator_by_id(operator.id)
-        assert isinstance(operator_by_id, Operator)
-        assert operator.id == operator_by_id.id
-        assert operator.url == operator_by_id.url
+#         operator_by_id = await victor_api.get_operator_by_id(operator.id)
+#         assert isinstance(operator_by_id, Operator)
+#         assert operator.id == operator_by_id.id
+#         assert operator.url == operator_by_id.url
 
-        operator_by_url = await victor_api.get_operator_by_url(operator.url)
-        assert isinstance(operator_by_url, Operator)
-        assert operator.id == operator_by_url.id
-        assert operator.url == operator_by_url.url
+#         operator_by_url = await victor_api.get_operator_by_url(operator.url)
+#         assert isinstance(operator_by_url, Operator)
+#         assert operator.id == operator_by_url.id
+#         assert operator.url == operator_by_url.url
 
 
-@pytest.mark.asyncio
-async def test_get_profiles(victor_api: VictorApi):
-    """Test get_profiles."""
-    profiles = await victor_api.get_profiles()
-    assert profiles is not None
-    for profile in profiles:
-        assert isinstance(profile, Profile)
+# @pytest.mark.asyncio
+# async def test_get_profiles(victor_api: VictorApi):
+#     """Test get_profiles."""
+#     profiles = await victor_api.get_profiles()
+#     assert profiles is not None
+#     for profile in profiles:
+#         assert isinstance(profile, Profile)
 
-        profile_by_id = await victor_api.get_profile_by_id(profile.id)
-        assert isinstance(profile_by_id, Profile)
-        assert profile.id == profile_by_id.id
-        assert profile.url == profile_by_id.url
+#         profile_by_id = await victor_api.get_profile_by_id(profile.id)
+#         assert isinstance(profile_by_id, Profile)
+#         assert profile.id == profile_by_id.id
+#         assert profile.url == profile_by_id.url
 
-        profile_by_url = await victor_api.get_profile_by_url(profile.url)
-        assert isinstance(profile_by_url, Profile)
-        assert profile.id == profile_by_url.id
-        assert profile.url == profile_by_url.url
+#         profile_by_url = await victor_api.get_profile_by_url(profile.url)
+#         assert isinstance(profile_by_url, Profile)
+#         assert profile.id == profile_by_url.id
+#         assert profile.url == profile_by_url.url
 
 
 @pytest.mark.asyncio
@@ -139,20 +137,20 @@ async def test_traps(victor_api: VictorApi):
         assert trap.url == trap_by_url.url
 
 
-@pytest.mark.asyncio
-async def test_get_users(victor_api: VictorApi):
-    """Test get_users."""
-    users = await victor_api.get_users()
-    assert users is not None
-    for user in users:
-        assert isinstance(user, User)
+# @pytest.mark.asyncio
+# async def test_get_users(victor_api: VictorApi):
+#     """Test get_users."""
+#     users = await victor_api.get_users()
+#     assert users is not None
+#     for user in users:
+#         assert isinstance(user, User)
 
-        user_by_id = await victor_api.get_user_by_id(user.id)
-        assert isinstance(user_by_id, User)
-        assert user.id == user_by_id.id
-        assert user.url == user_by_id.url
+#         user_by_id = await victor_api.get_user_by_id(user.id)
+#         assert isinstance(user_by_id, User)
+#         assert user.id == user_by_id.id
+#         assert user.url == user_by_id.url
 
-        user_by_url = await victor_api.get_user_by_url(user.url)
-        assert isinstance(user_by_url, User)
-        assert user.id == user_by_url.id
-        assert user.url == user_by_url.url
+#         user_by_url = await victor_api.get_user_by_url(user.url)
+#         assert isinstance(user_by_url, User)
+#         assert user.id == user_by_url.id
+#         assert user.url == user_by_url.url

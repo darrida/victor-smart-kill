@@ -1,13 +1,12 @@
 """Models module."""
-from dataclasses import dataclass, field
+
 from datetime import datetime
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any
 
-from marshmallow_dataclass import class_schema
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class Activity:  # pylint: disable=too-many-instance-attributes
+class Activity(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Activity data class."""
 
     id: int  # pylint: disable=invalid-name
@@ -28,21 +27,19 @@ class Activity:  # pylint: disable=too-many-instance-attributes
     board_type: str
     error_code: int
     active: bool
-    is_rat_kill: bool = field(metadata={"data_key": "isRatKill"})
-    sex_kill_detail: Optional[Any] = field(metadata={"data_key": "sexKillDetail"})
-    age_kill_detail: Optional[Any] = field(metadata={"data_key": "ageKillDetail"})
-    species_kill_detail: Optional[Any] = field(
-        metadata={"data_key": "speciesKillDetail"}
-    )
-    replaced_attractant: bool = field(metadata={"data_key": "replacedAttractant"})
-    replaced_battery: bool = field(metadata={"data_key": "replacedBattery"})
-    cleaned_trap: bool = field(metadata={"data_key": "cleanedTrap"})
-    note: Optional[Any]
-    site_id: Optional[Any]
-    building_id: Optional[Any]
-    floor_id: Optional[Any]
-    floor_plan_x: Optional[Any]
-    floor_plan_y: Optional[Any]
+    is_rat_kill: bool = Field(..., alias="isRatKill")
+    sex_kill_detail: Any | None = Field(..., alias="sexKillDetail")
+    age_kill_detail: Any | None = Field(..., alias="ageKillDetail")
+    species_kill_detail: Any | None = Field(..., alias="speciesKillDetail")
+    replaced_attractant: bool = Field(..., alias="replacedAttractant")
+    replaced_battery: bool = Field(..., alias="replacedBattery")
+    cleaned_trap: bool = Field(..., alias="cleanedTrap")
+    note: Any | None = None
+    site_id: Any | None = None
+    building_id: Any | None = None
+    floor_id: Any | None = None
+    floor_plan_x: Any | None = None
+    floor_plan_y: Any | None = None
     trap_type_text: str
 
     @property
@@ -51,8 +48,7 @@ class Activity:  # pylint: disable=too-many-instance-attributes
         return round(self.temperature / 20, 1)
 
 
-@dataclass
-class MobileApp:  # pylint: disable=too-many-instance-attributes
+class MobileApp(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Mobile app data class."""
 
     url: str
@@ -66,8 +62,7 @@ class MobileApp:  # pylint: disable=too-many-instance-attributes
     commercial_ideal_ios_version: str
 
 
-@dataclass
-class ProfileTermsAndConditions:
+class ProfileTermsAndConditions(BaseModel):
     """Profile terms- and condtions data class."""
 
     id: int  # pylint: disable=invalid-name
@@ -77,22 +72,21 @@ class ProfileTermsAndConditions:
     terms_version: str
 
 
-@dataclass
-class Profile:  # pylint: disable=too-many-instance-attributes
+class Profile(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Profile data class."""
 
     id: int  # pylint: disable=invalid-name
     url: str
     user: str
-    name: Optional[str]
-    operator: str
-    operator_name: str
-    client: Optional[str]
-    client_name: Optional[str]
-    telephone_number: str
-    phone_names: Optional[Any] = field(metadata={"data_key": "phoneNames"})
-    phone_numbers: Optional[Any] = field(metadata={"data_key": "phoneNumbers"})
-    email_addresses: Optional[Any] = field(metadata={"data_key": "emailAddresses"})
+    name: str | None = None
+    operator: str | None = None
+    operator_name: str | None = None
+    client: str | None = None
+    client_name: str | None = None
+    telephone_number: str | None = None
+    phone_names: Any | None = Field(..., alias="phoneNames")
+    phone_numbers: Any | None = Field(..., alias="phoneNumbers")
+    email_addresses: Any | None = Field(..., alias="emailAddresses")
     email_notifications_enabled: bool
     notifications_enabled: bool
     terms_version: int
@@ -102,30 +96,29 @@ class Profile:  # pylint: disable=too-many-instance-attributes
     notify_new_products: bool
     text_notifications_enabled: bool
     notify_empty_trap: bool
-    fcm_tokens: Optional[Any] = field(metadata={"data_key": "fcmTokens"})
-    apns_tokens: Optional[Any] = field(metadata={"data_key": "apnsTokens"})
-    fcm_arns: Optional[Any] = field(metadata={"data_key": "fcmARNs"})
-    apns_arns: Optional[Any] = field(metadata={"data_key": "apnsARNs"})
-    fcm_tokens_pro: Optional[Any] = field(metadata={"data_key": "fcmTokensPro"})
-    apns_tokens_pro: Optional[Any] = field(metadata={"data_key": "apnsTokensPro"})
-    fcm_arns_pro: Optional[Any] = field(metadata={"data_key": "fcmARNsPro"})
-    apns_arns_pro: Optional[Any] = field(metadata={"data_key": "apnsARNsPro"})
-    favorite_sites: Optional[Any]
+    fcm_tokens: Any | None = Field(..., alias="fcmTokens")
+    apns_tokens: Any | None = Field(..., alias="apnsTokens")
+    fcm_arns: Any | None = Field(..., alias="fcmARNs")
+    apns_arns: Any | None = Field(..., alias="apnsARNs")
+    fcm_tokens_pro: Any | None = Field(..., alias="fcmTokensPro")
+    apns_tokens_pro: Any | None = Field(..., alias="apnsTokensPro")
+    fcm_arns_pro: Any | None = Field(..., alias="fcmARNsPro")
+    apns_arns_pro: Any | None = Field(..., alias="apnsARNsPro")
+    favorite_sites: Any | None = None
     notify_false_trigger: bool
-    accepted_terms_and_conditions: Optional[List[ProfileTermsAndConditions]]
+    accepted_terms_and_conditions: list[ProfileTermsAndConditions] | None = None
 
 
-@dataclass
-class User:  # pylint: disable=too-many-instance-attributes
+class User(BaseModel):  # pylint: disable=too-many-instance-attributes
     """User data class."""
 
     id: int  # pylint: disable=invalid-name
     url: str
     username: str
-    password: Optional[str]
+    password: str | None = None
     email: str
-    groups: List[str]
-    group_names: List[str]
+    groups: list[str]
+    group_names: list[str]
     date_joined: datetime
     last_login: datetime
     first_name: str
@@ -133,8 +126,7 @@ class User:  # pylint: disable=too-many-instance-attributes
     profile: Profile
 
 
-@dataclass
-class OperatorTermsAndConditions:
+class OperatorTermsAndConditions(BaseModel):
     """Operator terms- and condtions data class."""
 
     id: int  # pylint: disable=invalid-name
@@ -144,8 +136,7 @@ class OperatorTermsAndConditions:
     terms_version: str
 
 
-@dataclass
-class Operator:  # pylint: disable=too-many-instance-attributes
+class Operator(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Operator data class."""
 
     id: int  # pylint: disable=invalid-name
@@ -160,11 +151,10 @@ class Operator:  # pylint: disable=too-many-instance-attributes
     terms_version: int
     terms: str
     contact: User
-    terms_and_conditions: Optional[List[OperatorTermsAndConditions]]
+    terms_and_conditions: list[OperatorTermsAndConditions] | None = None
 
 
-@dataclass
-class TrapStatistics:  # pylint: disable=too-many-instance-attributes
+class TrapStatistics(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Trap statistics data class."""
 
     id: int  # pylint: disable=invalid-name
@@ -172,72 +162,71 @@ class TrapStatistics:  # pylint: disable=too-many-instance-attributes
     trap: str
     trap_name: str
     kills_present: int
-    install_date: Optional[datetime]
+    install_date: datetime | None = None
     owner_name: str
     owner_email: str
     last_report_date: datetime
-    last_kill_date: Optional[datetime]
-    temperature: Optional[int]
+    last_kill_date: datetime | None = None
+    temperature: int | None = None
     battery_level: int
-    total_kills: Optional[int]
-    total_escapes: Optional[int]
+    total_kills: int | None = None
+    total_escapes: int | None = None
     rx_power_level: int
     firmware_version: str
     trap_provisioned: bool
-    last_sequence_number: Optional[int]
-    total_retreats: Optional[int]
+    last_sequence_number: int | None = None
+    total_retreats: int | None = None
     wireless_network_rssi: int
     error_code: int
     send_conn_lost_nt: bool
     send_empty_trap_nt: bool
     board_type: str
-    last_maintenance_date: Union[str, datetime]
-    bait_level: Optional[Any]
-    current_bait: Optional[Any]
-    last_bait_quantity: Optional[int]
+    last_maintenance_date: str | datetime
+    bait_level: Any | None = None
+    current_bait: Any | None = None
+    last_bait_quantity: int | None = None
 
     @property
-    def temperature_celcius(self) -> Optional[float]:
+    def temperature_celcius(self) -> float | None:
         """Get temperature in celcius."""
         return round(self.temperature / 20, 1) if self.temperature else None
 
 
-@dataclass
-class Trap:  # pylint: disable=too-many-instance-attributes
+class Trap(BaseModel):  # pylint: disable=too-many-instance-attributes
     """Trap data class."""
 
     id: int  # pylint: disable=invalid-name
     url: str
     corruption_status: int
-    corruption_status_options: Optional[List[Tuple[int, str]]]
-    operator: Optional[str]
-    operator_name: Optional[str]
+    corruption_status_options: list[tuple[int, str]] | None = None
+    operator: str | None = None
+    operator_name: str | None = None
     name: str
     ssid: str
     serial_number: str
     auto_upgrade: bool
     status: int
-    location: Optional[str]
-    lat: Optional[float]
-    long: Optional[float]
-    upgrade_firmware: Optional[str]
-    commercial_gateway: Optional[str]
+    location: str | None = None
+    lat: float | None = None
+    long: float | None = None
+    upgrade_firmware: str | None = None
+    commercial_gateway: str | None = None
     commercial_monitor_mode_enabled: bool
     lorawan_app_key: str
-    site_name: Optional[str]
-    floor_plan_x: Optional[int]
-    floor_plan_y: Optional[int]
-    building_name: Optional[str]
-    floor_name: Optional[str]
-    room: Optional[str]
-    room_name: Optional[str]
+    site_name: str | None = None
+    floor_plan_x: int | None = None
+    floor_plan_y: int | None = None
+    building_name: str | None = None
+    floor_name: str | None = None
+    room: str | None = None
+    room_name: str | None = None
     trap_type: int
     trap_type_verbose: str
     alerts: int
     trapstatistics: TrapStatistics
 
     @property
-    def corruption_status_verbose(self) -> Optional[str]:
+    def corruption_status_verbose(self) -> str | None:
         """Get description of corruption_status code."""
         if self.corruption_status_options:
             return next(
@@ -246,13 +235,3 @@ class Trap:  # pylint: disable=too-many-instance-attributes
                 if item[0] == self.corruption_status
             )
         return None
-
-
-ActivitySchema = class_schema(Activity)
-MobileAppsSchema = class_schema(MobileApp)
-OperatorSchema = class_schema(Operator)
-ProfileSchema = class_schema(Profile)
-TermsAndConditionsSchema = class_schema(OperatorTermsAndConditions)
-TrapSchema = class_schema(Trap)
-TrapStatisticsSchema = class_schema(TrapStatistics)
-UserSchema = class_schema(User)

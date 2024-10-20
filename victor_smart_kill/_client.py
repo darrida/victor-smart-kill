@@ -1,4 +1,5 @@
 """Victor Smart Kill API module."""
+
 import logging
 
 from httpx import URL, AsyncClient, Response, codes

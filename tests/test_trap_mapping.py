@@ -1,10 +1,12 @@
 """Mapping unit tests."""
+
 import json
 import pathlib
 
 import pytest
 from dateutil.parser import isoparse
-from victor_smart_kill._models import TrapSchema
+
+from victor_smart_kill._models import Trap
 
 
 @pytest.fixture()
@@ -16,9 +18,9 @@ def trap_json(request) -> dict:
         return json.load(json_file)
 
 
-def test_trap_mappig(trap_json: dict):
+def test_trap_mapping(trap_json: dict):
     """Test trap json mapping."""
-    trap = TrapSchema().load(trap_json)
+    trap = Trap(**trap_json)
     assert trap
     assert trap.id == trap_json["id"]
     assert trap.url == trap_json["url"]
