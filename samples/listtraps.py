@@ -8,26 +8,24 @@ import logging
 import os
 import sys
 
+from pydantic import SecretStr
+
 sys.path.append(os.path.abspath(".."))
 from victor_mouse_trap import VictorApi, VictorAsyncClient  # noqa:E402
 
 _version = "0.1"
 
 try:
-    import config
-except ImportError:
-    logging.warning(
-        (
-            "No config file present. Copy sample_config.py to config.py"
-            " and add your username and password."
-        )
-    )
-    sys.exit(1)
+    username = os.environ["SECRET_VICTOR_USERNAME"]
+    password = SecretStr(os.environ.get["SECRET_VICTOR_USERNAME"])
+except TypeError:
+    print(f"Requires Victor username and password to be set in environment variables named SECRET_VICTOR_USERNAME and SECRET_VICTOR_USERNAME")
+    exit()
 
 
 async def start():
     """Print trap details."""
-    async with VictorAsyncClient(config.username, config.password) as client:
+    async with VictorAsyncClient(username, password) as client:
         if os.path.exists(".token"):
             client._token = open(".token").read()
 

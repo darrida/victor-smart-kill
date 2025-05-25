@@ -1,3 +1,0 @@
-httpx~=0.20
-python-dateutil
-pytest-asyncio

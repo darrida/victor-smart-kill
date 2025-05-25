@@ -6,6 +6,8 @@ creds.py
 test.py
 .vscode/
 config.py
+dist/
+.ruff_cache/
 
 # C extensions
 *.so
